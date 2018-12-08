@@ -85,6 +85,7 @@ var MarsRover = function (grid) {
   };
 };
 
+// Output Test
 var marsRover = new MarsRover([5, 5]);
 marsRover.addRover([1, 2],'N');
 marsRover.sendCommand('LMLMLMLMM');
