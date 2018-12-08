@@ -9,6 +9,9 @@ var MarsRover = function (grid) {
   this.status = 'Success';
   var positions = [];
 
+  /* ========================================
+  =            Public functions            =
+  ======================================== */
   this.addRover = function(location,direction){
     this.location = location;
     this.direction = direction;
@@ -19,11 +22,11 @@ var MarsRover = function (grid) {
     for (var i = 0; i < commands.length; i++) {
       var command = commands[i];
       if (command === 'M') {
-          if (!move(command)){
-            break;
-          }
+        if (!move(command)){
+          break;
+        }
       } else if (command === 'L' || command === 'R') {
-          process(command);
+        process(command);
       }
     }
 
@@ -37,22 +40,26 @@ var MarsRover = function (grid) {
     });
   };
 
+
+  /* =============================================
+  =                Private functions            =
+  ============================================= */
   var move = function (command) {
     var x = 0,
         y = 0;
 
     if (self.direction == 'N') {
-        y++;
+      y++;
     } else if (self.direction == 'E') {
-        x++;
+      x++;
     } else if (self.direction == 'S') {
-        y--;
+      y--;
     } else if (self.direction == 'W') {
-        x--;
+      x--;
     }
     var newLocation = [self.location[0] + x, self.location[1] + y];
     if (detectDirection(newLocation)) {
-        return false;
+      return false;
     }
     self.location = newLocation;
     return true;
@@ -61,8 +68,8 @@ var MarsRover = function (grid) {
   var detectDirection = function (newLocation) {
     for (var i = 1; i < self.positionControl.length; i++) {
       if (newLocation.toString() == self.positionControl[i].toString()) {
-          self.status = 'Cannot move out of Grid';
-          return true;
+        self.status = 'Cannot move out of Grid';
+        return true;
       }
     }
     return false;
@@ -71,16 +78,16 @@ var MarsRover = function (grid) {
   var process = function (command) {
     var directionNumber = getDirectionNumber(self.direction);
     if (command == 'L') {
-        directionNumber = (directionNumber + 3 - 1) % 4;
+      directionNumber = (directionNumber + 3 - 1) % 4;
     } else {
-        directionNumber = (directionNumber + 1) % 4;
+      directionNumber = (directionNumber + 1) % 4;
     }
     self.direction = self.directions[directionNumber];
   };
 
   var getDirectionNumber = function (direction) {
     for (var index = 0; index < 4; index++) {
-        if (self.directions[index] === direction) return index;
+      if (self.directions[index] === direction) return index;
     }
   };
 };
